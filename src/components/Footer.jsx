@@ -41,7 +41,7 @@ function Footer() {
           </motion.form>
         </div>
       </div>
-      <div className="footer-bottom">Copyright 2025, Apple &amp; Peaches · Designed by Prashant Dongare</div>
+      <div className="footer-bottom">Copyright 2026, Apple &amp; Peaches · Designed by Prashant Dongare · Made in Germany</div>
     </footer>
   );
 }

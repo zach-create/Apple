@@ -1,6 +1,6 @@
-function Logo({ light = false }) {
+function Logo({ light = false, compact = false }) {
   return (
-    <div className={`brand-lockup ${light ? 'light' : ''}`}>
+    <div className={`brand-lockup ${light ? 'light' : ''} ${compact ? 'compact' : ''}`}>
       <div className="brand-icon" aria-hidden="true">
         <svg viewBox="0 0 70 42" role="presentation">
           <path
@@ -28,7 +28,7 @@ function Logo({ light = false }) {
           />
         </svg>
       </div>
-      <span>Apple &amp; Peaches</span>
+      <span>{compact ? 'A&P' : 'Apple & Peaches'}</span>
     </div>
   );
 }

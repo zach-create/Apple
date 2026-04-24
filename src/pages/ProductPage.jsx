@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { shopProducts } from '../data/products';
 
 function ProductPage() {
   const { id } = useParams();
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const product = shopProducts.find((item) => item.id === id) || shopProducts[0];
 
   return (
@@ -23,8 +25,8 @@ function ProductPage() {
           <span className="section-label">{product.collection}</span>
           <h1>{product.name}</h1>
           <div className="product-card-pricing">
-            <span className="current">{product.price}</span>
-            <span className="old">{product.originalPrice}</span>
+            <span className="current">{formatPrice(product.priceValue)}</span>
+            <span className="old">{formatPrice(product.originalPriceValue ?? product.priceValue)}</span>
           </div>
           <p>
             A premium Apple &amp; Peaches garment designed for polished everyday wear,

@@ -1,6 +1,13 @@
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import heroVideo from '../../first.mp4';
+import storyVideo from '../../second.mp4';
+import limitedVideo from '../../limited.mp4';
+import showcaseImage from '../../new.jpg';
+import blogImageOne from '../../Blog1.jpg';
+import blogImageTwo from '../../Blog2.jpg';
+import blogImageThree from '../../Blog3.jpg';
 import ProductCard from '../components/ProductCard';
 import {
   blogPosts,
@@ -8,21 +15,16 @@ import {
   faqItems,
   featuredProduct,
   homepageCarouselProducts,
-  infiniteStripPalettes,
   testimonials,
 } from '../data/products';
 
 const spring = { type: 'spring', stiffness: 280, damping: 22 };
 const reveal = { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] };
+const blogImages = [blogImageOne, blogImageTwo, blogImageThree];
 
 function LandingPage() {
-  const [bannerVisible, setBannerVisible] = useState(true);
-  const [activeThumb, setActiveThumb] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
   const carouselRef = useRef(null);
-  const { scrollYProgress } = useScroll();
-  const storyY = useTransform(scrollYProgress, [0.18, 0.42], [0, -80]);
-  const heroFallbackY = useTransform(scrollYProgress, [0, 0.2], [0, 20]);
 
   const carouselWidth = useMemo(
     () => Math.max(0, homepageCarouselProducts.length * 280 - 960),
@@ -36,66 +38,28 @@ function LandingPage() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <AnimatePresence>
-        {bannerVisible && (
-          <motion.section
-            className="newsletter-banner"
-            initial={{ y: -60, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -60, opacity: 0 }}
-            transition={reveal}
-          >
-            <div>
-              <h2>First timer? Sign up and get 20% off your first order</h2>
-              <p>
-                Subscribe to our newsletter and be the first to hear about new arrivals,
-                special promotions, and online exclusives.
-              </p>
-            </div>
-            <div className="newsletter-banner-actions">
-              <input type="email" placeholder="Email address" />
-              <motion.button
-                type="button"
-                className="primary-button"
-                whileHover={{ scale: 0.97 }}
-                whileTap={{ scale: 0.95 }}
-                transition={spring}
-              >
-                Subscribe
-              </motion.button>
-              <button
-                type="button"
-                className="dismiss-banner"
-                onClick={() => setBannerVisible(false)}
-              >
-                ×
-              </button>
-            </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
-
-      <section className="hero-section produce-hero">
+      <section className="hero-section produce-hero full-bleed-hero">
         <video
           className="hero-video"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
           poster=""
         >
-          <source src="https://cdn.coverr.co/videos/coverr-harvested-fruit-1561489161690?download=1080p" type="video/mp4" />
+          <source src={heroVideo} type="video/mp4" />
         </video>
-        <motion.div className="hero-fallback-gradient" style={{ y: heroFallbackY }} />
+        <div className="hero-fallback-gradient" />
         <div className="hero-overlay" />
-        <div className="hero-content">
+        <motion.div className="hero-content">
           <motion.span
             className="hero-kicker"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={reveal}
           >
-            EST. 2022
+            EST. 2026
           </motion.span>
           <motion.div
             className="hero-heading-stack"
@@ -135,13 +99,13 @@ function LandingPage() {
               Shop Now
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="section-head-row" id="organic">
         <div>
-          <span className="section-label">New Collection</span>
-          <h2>Signature Wardrobe</h2>
+          <span className="section-label">Limited Collection</span>
+          <h2>Signature Drop</h2>
         </div>
         <Link className="section-link" to="/shop">
           See All Products
@@ -158,14 +122,30 @@ function LandingPage() {
         >
           {homepageCarouselProducts.map((product) => (
             <div className="carousel-card" key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard
+                product={product}
+                showPricing={false}
+                showAction={false}
+                imageSrc={showcaseImage}
+              />
             </div>
           ))}
         </motion.div>
       </section>
 
       <section className="story-banner-section" id="story">
-        <motion.div className="story-banner-image" style={{ y: storyY }} />
+        <div className="story-banner-image">
+          <video
+            className="story-banner-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src={storyVideo} type="video/mp4" />
+          </video>
+        </div>
         <div className="story-banner-content">
           <h2>Embrace individuality and redefine your wardrobe</h2>
           <Link className="section-link light" to="/login">
@@ -174,36 +154,25 @@ function LandingPage() {
         </div>
       </section>
 
-      <section className="image-strip-section">
-        <div className="image-strip-track">
-          {[...infiniteStripPalettes, ...infiniteStripPalettes].map((palette, index) => (
-            <div key={`${palette}-${index}`} className={`strip-image ${palette}`} />
-          ))}
-        </div>
-      </section>
-
       <section className="seasonal-pick-section" id="seasonal">
         <div className="section-head-row tight">
           <div>
-            <span className="section-label">Featured Piece</span>
-            <h2>Heirloom Satin Dress</h2>
+            <span className="section-label">On Order</span>
+            <h2>Limited Signature Drop</h2>
           </div>
         </div>
         <div className="seasonal-pick-layout">
           <div className="seasonal-gallery">
-            <div className={`seasonal-image ${activeThumb === 0 ? 'peach' : activeThumb === 1 ? 'peach-alt' : 'apple'}`}>
-              <span>{activeThumb === 0 ? '👗' : activeThumb === 1 ? '✨' : '🧥'}</span>
-            </div>
-            <div className="seasonal-thumbs">
-              {[0, 1, 2].map((thumb) => (
-                <button
-                  key={thumb}
-                  className={`thumb-button ${activeThumb === thumb ? 'active' : ''}`}
-                  onClick={() => setActiveThumb(thumb)}
-                  type="button"
-                />
-              ))}
-            </div>
+            <video
+              className="seasonal-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            >
+              <source src={limitedVideo} type="video/mp4" />
+            </video>
           </div>
 
           <motion.div
@@ -213,25 +182,23 @@ function LandingPage() {
             viewport={{ once: true, amount: 0.3 }}
             transition={reveal}
           >
+            <h3 className="seasonal-product-title">Apple and Peaches Brooch</h3>
             <div className="seasonal-price-row">
-              <strong>{featuredProduct.originalPrice}</strong>
-              <span>{featuredProduct.price}</span>
+              <span>INR 650</span>
             </div>
-            <div className="seasonal-rating">★★★★★ (12 reviews)</div>
-            <div className="seasonal-trust">
-              <span>✅ Safe Payment</span>
-              <span>🚚 Free Shipping</span>
-              <span>📦 Delivery in 2–5 days</span>
-            </div>
+            <div className="seasonal-rating">★★★★★ (499+)</div>
             <motion.button
               className="primary-button full-width"
               whileHover={{ scale: 0.97 }}
               whileTap={{ scale: 0.95 }}
               transition={spring}
             >
-              Order Now
+              Place an Order
             </motion.button>
             <p>{featuredProduct.description}</p>
+            <p className="seasonal-dispatch-note">
+              Each and every clothing is hand woven and hand stitched, so it may take 3 to 4 days to dispatch.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -268,7 +235,8 @@ function LandingPage() {
           {collectionCards.map((card) => (
             <motion.article
               key={card.title}
-              className={`collection-grid-card ${card.palette}`}
+              className="collection-grid-card collection-card-photo"
+              style={{ backgroundImage: `url(${showcaseImage})` }}
               whileHover="hover"
               initial="rest"
               animate="rest"
@@ -315,7 +283,7 @@ function LandingPage() {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {blogPosts.map((post) => (
+          {blogPosts.map((post, index) => (
             <motion.article
               key={post.id}
               className="blog-card"
@@ -325,7 +293,11 @@ function LandingPage() {
               }}
               transition={reveal}
             >
-              <motion.div className={`blog-image ${post.palette}`} whileHover={{ scale: 1.01 }}>
+              <motion.div
+                className="blog-image blog-photo"
+                style={{ backgroundImage: `url(${blogImages[index]})` }}
+                whileHover={{ scale: 1.01 }}
+              >
                 <motion.span
                   className="blog-read-more"
                   initial={{ opacity: 0 }}
@@ -384,35 +356,6 @@ function LandingPage() {
         </div>
       </section>
 
-      <motion.section
-        className="trust-strip"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={{
-          hidden: {},
-          visible: { transition: { staggerChildren: 0.1 } },
-        }}
-      >
-        {[
-          ['🚚', 'Free Shipping', 'Get free shipping on all orders over $100'],
-          ['🔒', 'Secure Checkout', 'We make sure everything is safe for you'],
-          ['🔄', 'Money Back Guarantee', 'Not satisfied? Just return it to us'],
-        ].map(([icon, title, body]) => (
-          <motion.article
-            key={title}
-            className="trust-card"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            <span>{icon}</span>
-            <h3>{title}</h3>
-            <p>{body}</p>
-          </motion.article>
-        ))}
-      </motion.section>
     </motion.main>
   );
 }

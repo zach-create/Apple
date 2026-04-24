@@ -2,12 +2,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import { useCurrency } from '../context/CurrencyContext';
 import { shopCategories, shopProducts } from '../data/products';
 
 const spring = { type: 'spring', stiffness: 280, damping: 22 };
 
 function ShopPage() {
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
   const [category, setCategory] = useState('All');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -100,8 +102,8 @@ function ShopPage() {
                 <span className="section-label">{selectedProduct.collection}</span>
                 <h2>{selectedProduct.name}</h2>
                 <div className="product-card-pricing">
-                  <span className="current">{selectedProduct.price}</span>
-                  <span className="old">{selectedProduct.originalPrice}</span>
+                  <span className="current">{formatPrice(selectedProduct.priceValue)}</span>
+                  <span className="old">{formatPrice(selectedProduct.originalPriceValue ?? selectedProduct.priceValue)}</span>
                 </div>
                 <p>
                   A refined wardrobe piece designed for elegant everyday dressing, thoughtful layering,

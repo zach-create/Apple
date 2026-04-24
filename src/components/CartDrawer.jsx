@@ -1,8 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 
 function CartDrawer() {
   const { items, closeCart, isCartOpen, updateQuantity, removeItem, subtotal } = useCart();
+  const { formatPrice } = useCurrency();
 
   return (
     <AnimatePresence>
@@ -51,7 +53,7 @@ function CartDrawer() {
                     <div className={`cart-swatch ${item.palette}`} />
                     <div className="cart-item-copy">
                       <strong>{item.name}</strong>
-                      <span>{item.price}</span>
+                      <span>{formatPrice(item.priceValue)}</span>
                     </div>
                     <div className="cart-item-controls">
                       <button onClick={() => updateQuantity(item.id, -1)}>-</button>
@@ -68,7 +70,7 @@ function CartDrawer() {
             <div className="cart-footer">
               <div className="subtotal-row">
                 <span>Subtotal</span>
-                <strong>${subtotal.toFixed(2)}</strong>
+                <strong>{formatPrice(subtotal)}</strong>
               </div>
               <motion.button
                 className="primary-button full-width"

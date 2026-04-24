@@ -89,14 +89,21 @@ button {
 }
 
 .navbar-shell {
-  position: sticky;
-  top: 29px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.96);
+  background: transparent;
+  color: var(--white);
+  transition: background 220ms ease, border-color 220ms ease, backdrop-filter 220ms ease;
 }
 
 .navbar-shell.scrolled {
+  background: rgba(255, 255, 255, 0.92);
   border-bottom: 1px solid var(--light-gray);
+  backdrop-filter: blur(18px);
+  color: var(--black);
 }
 
 .navbar {
@@ -117,14 +124,20 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: var(--green);
+  color: currentColor;
   font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 700;
+  transition: color 220ms ease, gap 220ms ease, font-size 220ms ease;
 }
 
 .brand-lockup.light {
   color: var(--white);
+}
+
+.brand-lockup.compact {
+  gap: 0.42rem;
+  font-size: 1.55rem;
 }
 
 .brand-icon {
@@ -163,6 +176,49 @@ button {
   flex-wrap: wrap;
 }
 
+.currency-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(14, 14, 14, 0.38);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 14px 28px rgba(14, 14, 14, 0.14);
+}
+
+.navbar-shell.scrolled .currency-toggle {
+  border-color: rgba(14, 14, 14, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: none;
+}
+
+.currency-option {
+  min-width: 3.35rem;
+  padding: 0.42rem 0.72rem;
+  border-radius: 999px;
+  color: currentColor;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.currency-option:hover {
+  transform: translateY(-1px);
+}
+
+.currency-option.active {
+  background: var(--white);
+  color: var(--black);
+}
+
+.navbar-shell.scrolled .currency-option.active {
+  background: var(--green);
+  color: var(--white);
+}
+
 .nav-link {
   position: relative;
 }
@@ -175,7 +231,7 @@ button {
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--black);
+  color: currentColor;
 }
 
 .nav-underline {
@@ -195,8 +251,19 @@ button {
   align-items: center;
   justify-content: center;
   background: transparent;
-  color: var(--black);
+  color: currentColor;
   position: relative;
+}
+
+.navbar-shell:not(.scrolled) .icon-button,
+.navbar-shell:not(.scrolled) .mobile-toggle {
+  background: rgba(14, 14, 14, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.navbar-shell:not(.scrolled) .icon-button[aria-label="Open cart"] {
+  color: #fff4cb;
 }
 
 .cart-badge {
@@ -224,7 +291,7 @@ button {
   display: block;
   width: 1rem;
   height: 1px;
-  background: var(--black);
+  background: currentColor;
 }
 
 .mobile-menu {
@@ -251,6 +318,10 @@ button {
 .page {
   width: min(var(--content-width), calc(100% - 2rem));
   margin: 0 auto;
+}
+
+.home-page {
+  width: 100%;
 }
 
 .newsletter-banner {
@@ -345,9 +416,15 @@ button {
 
 .produce-hero {
   position: relative;
-  min-height: calc(100vh - 120px);
+  min-height: 100vh;
   overflow: hidden;
   background: var(--black);
+}
+
+.full-bleed-hero {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .hero-video,
@@ -361,21 +438,26 @@ button {
 
 .hero-video {
   object-fit: cover;
+  z-index: 0;
+  transform-origin: center center;
 }
 
 .hero-fallback-gradient {
   background: linear-gradient(140deg, #10231d, #0e0e0e, #183229);
+  z-index: 1;
+  opacity: 0.18;
 }
 
 .hero-overlay {
   background: linear-gradient(180deg, rgba(14, 14, 14, 0.22), rgba(14, 14, 14, 0.58));
+  z-index: 2;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
-  min-height: calc(100vh - 120px);
-  padding: 7rem 2rem 4rem;
+  z-index: 3;
+  min-height: 100vh;
+  padding: calc(var(--nav-height) + 3rem) 2rem 4rem;
   display: grid;
   place-content: center;
   justify-items: center;
@@ -449,6 +531,15 @@ button {
   flex: 0 0 280px;
 }
 
+.product-card-status {
+  margin-top: 0.75rem;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 .product-card {
   background: var(--white);
 }
@@ -457,6 +548,14 @@ button {
   position: relative;
   height: 390px;
   overflow: hidden;
+}
+
+.product-card-photo {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .product-card-image,
@@ -605,6 +704,12 @@ button {
   background: linear-gradient(140deg, #163127, #2f5445, #0f231c);
 }
 
+.story-banner-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .story-banner-content {
   position: relative;
   z-index: 1;
@@ -659,6 +764,13 @@ button {
   min-height: 640px;
 }
 
+.seasonal-video {
+  width: 100%;
+  height: 760px;
+  object-fit: cover;
+  background: var(--black);
+}
+
 .seasonal-thumbs {
   display: flex;
   gap: 0.75rem;
@@ -679,6 +791,13 @@ button {
   padding-top: 2rem;
 }
 
+.seasonal-product-title {
+  margin: 0 0 0.85rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
 .seasonal-price-row {
   display: flex;
   gap: 1rem;
@@ -693,6 +812,12 @@ button {
 .seasonal-rating {
   margin: 1rem 0;
   color: var(--gold);
+}
+
+.seasonal-dispatch-note {
+  margin-top: 1rem;
+  color: var(--gray);
+  line-height: 1.7;
 }
 
 .seasonal-trust {
@@ -750,6 +875,12 @@ button {
   overflow: hidden;
 }
 
+.collection-card-photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .collection-grid-overlay {
   position: absolute;
   inset: 0;
@@ -799,6 +930,12 @@ button {
 .blog-image {
   position: relative;
   min-height: 260px;
+}
+
+.blog-photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .blog-read-more {
@@ -1321,7 +1458,7 @@ button {
 
 @media (max-width: 640px) {
   .navbar-shell {
-    top: 29px;
+    top: 0;
   }
 
   .brand-lockup span {
