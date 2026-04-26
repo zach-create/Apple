@@ -21,13 +21,13 @@ const spring = { type: 'spring', stiffness: 280, damping: 22 };
 const reveal = { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] };
 const blogImages = [blogImageOne, blogImageTwo, blogImageThree];
 const tailoredCollectionImages = Object.values(
-  import.meta.glob('../../designs/B_DES/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/B_DES/*', { eager: true, import: 'default' }),
 ).sort();
 const occasionCollectionImages = Object.values(
-  import.meta.glob('../../designs/W_DES/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/W_DES/*', { eager: true, import: 'default' }),
 ).sort();
 const essentialsCollectionImages = Object.values(
-  import.meta.glob('../../designs/Same/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/Same/*', { eager: true, import: 'default' }),
 ).sort();
 
 function LandingPage() {

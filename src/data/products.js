@@ -1,20 +1,20 @@
 const signatureImages = Object.values(
-  import.meta.glob('../../designs/S*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/S*', { eager: true, import: 'default' }),
 ).sort();
 const tailoredImages = Object.values(
-  import.meta.glob('../../designs/B_DES/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/B_DES/*', { eager: true, import: 'default' }),
 ).sort();
 const occasionImages = Object.values(
-  import.meta.glob('../../designs/W_DES/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/W_DES/*', { eager: true, import: 'default' }),
 ).sort();
 const essentialsImages = Object.values(
-  import.meta.glob('../../designs/Same/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/Same/*', { eager: true, import: 'default' }),
 ).sort();
 const boutiqueImages = Object.values(
-  import.meta.glob('../../designs/B_DESS/*', { eager: true, import: 'default' }),
+  import.meta.glob('../../Designs/B_DESS/*', { eager: true, import: 'default' }),
 ).sort();
 const extraDesignImages = Object.entries(
-  import.meta.glob('../../designs/*.{jpg,jpeg,png,webp,avif}', {
+  import.meta.glob('../../Designs/*.{jpg,jpeg,png,webp,avif}', {
     eager: true,
     import: 'default',
   }),
