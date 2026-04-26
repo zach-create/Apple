@@ -95,7 +95,16 @@ function ShopPage() {
               exit={{ y: '100%' }}
               transition={spring}
             >
-              <div className={`product-detail-image ${selectedProduct.palette}`}>
+              <div
+                className={`product-detail-image ${selectedProduct.imageSrc ? 'product-photo-frame' : selectedProduct.palette}`}
+                style={
+                  selectedProduct.gallery?.[selectedImageIndex]
+                    ? { backgroundImage: `url(${selectedProduct.gallery[selectedImageIndex]})` }
+                    : selectedProduct.imageSrc
+                      ? { backgroundImage: `url(${selectedProduct.imageSrc})` }
+                      : undefined
+                }
+              >
                 <span>{selectedProduct.name}</span>
               </div>
               <div className="product-detail-copy">

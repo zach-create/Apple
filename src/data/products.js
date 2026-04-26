@@ -1,3 +1,28 @@
+const signatureImages = Object.values(
+  import.meta.glob('../../designs/S*', { eager: true, import: 'default' }),
+).sort();
+const tailoredImages = Object.values(
+  import.meta.glob('../../designs/B_DES/*', { eager: true, import: 'default' }),
+).sort();
+const occasionImages = Object.values(
+  import.meta.glob('../../designs/W_DES/*', { eager: true, import: 'default' }),
+).sort();
+const essentialsImages = Object.values(
+  import.meta.glob('../../designs/Same/*', { eager: true, import: 'default' }),
+).sort();
+const boutiqueImages = Object.values(
+  import.meta.glob('../../designs/B_DESS/*', { eager: true, import: 'default' }),
+).sort();
+const extraDesignImages = Object.entries(
+  import.meta.glob('../../designs/*.{jpg,jpeg,png,webp,avif}', {
+    eager: true,
+    import: 'default',
+  }),
+)
+  .filter(([path]) => !/\/S\d+\./i.test(path))
+  .map(([, image]) => image)
+  .sort();
+
 export const homepageCarouselProducts = [
   {
     id: 'heritage-tailored-blazer',
@@ -10,6 +35,7 @@ export const homepageCarouselProducts = [
     category: 'Outerwear',
     palette: 'apple',
     hoverPalette: 'apple-alt',
+    imageSrc: signatureImages[0],
   },
   {
     id: 'pearl-slip-dress',
@@ -22,6 +48,7 @@ export const homepageCarouselProducts = [
     category: 'Dresses',
     palette: 'peach',
     hoverPalette: 'peach-alt',
+    imageSrc: signatureImages[1],
   },
   {
     id: 'atelier-shirt',
@@ -34,6 +61,7 @@ export const homepageCarouselProducts = [
     category: 'Tops',
     palette: 'citrus',
     hoverPalette: 'citrus-alt',
+    imageSrc: signatureImages[2],
   },
   {
     id: 'noir-column-skirt',
@@ -46,6 +74,7 @@ export const homepageCarouselProducts = [
     category: 'Bottoms',
     palette: 'berry',
     hoverPalette: 'berry-alt',
+    imageSrc: signatureImages[3],
   },
   {
     id: 'resort-knit-set',
@@ -58,6 +87,7 @@ export const homepageCarouselProducts = [
     category: 'Sets',
     palette: 'tropical',
     hoverPalette: 'tropical-alt',
+    imageSrc: signatureImages[4],
   },
   {
     id: 'green-essentials-jacket',
@@ -70,6 +100,7 @@ export const homepageCarouselProducts = [
     category: 'Outerwear',
     palette: 'greens',
     hoverPalette: 'greens-alt',
+    imageSrc: extraDesignImages[0],
   },
 ];
 
@@ -181,6 +212,7 @@ export const shopProducts = [
     category: 'Outerwear',
     palette: 'berry',
     hoverPalette: 'berry-alt',
+    imageSrc: extraDesignImages[1],
   },
   {
     id: 'rose-line-dress',
@@ -193,6 +225,7 @@ export const shopProducts = [
     category: 'Dresses',
     palette: 'peach',
     hoverPalette: 'peach-alt',
+    imageSrc: extraDesignImages[2],
   },
   {
     id: 'ivory-wrap-top',
@@ -205,6 +238,7 @@ export const shopProducts = [
     category: 'Tops',
     palette: 'citrus',
     hoverPalette: 'citrus-alt',
+    imageSrc: tailoredImages[0],
   },
   {
     id: 'emerald-wide-leg',
@@ -217,6 +251,7 @@ export const shopProducts = [
     category: 'Bottoms',
     palette: 'greens',
     hoverPalette: 'greens-alt',
+    imageSrc: tailoredImages[1],
   },
   {
     id: 'opal-midi',
@@ -229,6 +264,7 @@ export const shopProducts = [
     category: 'Dresses',
     palette: 'apple-alt',
     hoverPalette: 'peach-alt',
+    imageSrc: tailoredImages[2],
   },
   {
     id: 'studio-knit-set',
@@ -241,6 +277,98 @@ export const shopProducts = [
     category: 'Sets',
     palette: 'tropical',
     hoverPalette: 'tropical-alt',
+    imageSrc: occasionImages[0],
+  },
+  {
+    id: 'atelier-pleated-set',
+    name: 'Atelier Pleated Set',
+    collection: 'Occasion',
+    price: '$166',
+    priceValue: 166,
+    originalPrice: '$196',
+    originalPriceValue: 196,
+    category: 'Sets',
+    palette: 'apple',
+    hoverPalette: 'apple-alt',
+    imageSrc: occasionImages[1],
+  },
+  {
+    id: 'sunline-cape',
+    name: 'Sunline Cape',
+    collection: 'Essentials',
+    price: '$132',
+    priceValue: 132,
+    originalPrice: '$158',
+    originalPriceValue: 158,
+    category: 'Outerwear',
+    palette: 'greens',
+    hoverPalette: 'greens-alt',
+    imageSrc: occasionImages[2],
+  },
+  {
+    id: 'everyday-sculpt-top',
+    name: 'Everyday Sculpt Top',
+    collection: 'Essentials',
+    price: '$92',
+    priceValue: 92,
+    originalPrice: '$114',
+    originalPriceValue: 114,
+    category: 'Tops',
+    palette: 'citrus',
+    hoverPalette: 'citrus-alt',
+    imageSrc: essentialsImages[0],
+  },
+  {
+    id: 'soft-drape-midi',
+    name: 'Soft Drape Midi',
+    collection: 'Boutique',
+    price: '$148',
+    priceValue: 148,
+    originalPrice: '$176',
+    originalPriceValue: 176,
+    category: 'Dresses',
+    palette: 'peach',
+    hoverPalette: 'peach-alt',
+    imageSrc: essentialsImages[1],
+  },
+  {
+    id: 'gallery-brooch',
+    name: 'Gallery Brooch',
+    collection: 'Boutique',
+    price: '$88',
+    priceValue: 88,
+    originalPrice: '$110',
+    originalPriceValue: 110,
+    category: 'Tops',
+    palette: 'berry',
+    hoverPalette: 'berry-alt',
+    imageSrc: boutiqueImages[0],
+  },
+  {
+    id: 'heirloom-wrap-jacket',
+    name: 'Heirloom Wrap Jacket',
+    collection: 'Boutique',
+    price: '$184',
+    priceValue: 184,
+    originalPrice: '$214',
+    originalPriceValue: 214,
+    category: 'Outerwear',
+    palette: 'greens',
+    hoverPalette: 'greens-alt',
+    imageSrc: boutiqueImages[1],
+  },
+  {
+    id: 'studio-occasion-dress',
+    name: 'Studio Occasion Dress',
+    collection: 'Boutique',
+    price: '$172',
+    priceValue: 172,
+    originalPrice: '$205',
+    originalPriceValue: 205,
+    category: 'Dresses',
+    palette: 'apple-alt',
+    hoverPalette: 'peach-alt',
+    imageSrc: boutiqueImages[2],
   },
 ];
 

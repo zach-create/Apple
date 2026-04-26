@@ -18,7 +18,10 @@ function ProductPage() {
       exit={{ opacity: 0, y: -20 }}
     >
       <div className="product-page-layout">
-        <div className={`product-page-image ${product.palette}`}>
+        <div
+          className={`product-page-image ${product.imageSrc ? 'product-photo-frame' : product.palette}`}
+          style={product.imageSrc ? { backgroundImage: `url(${product.imageSrc})` } : undefined}
+        >
           <span>{product.name}</span>
         </div>
         <div className="product-page-copy">

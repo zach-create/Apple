@@ -29,6 +29,7 @@ function ProductCard({
   const { addItem } = useCart();
   const { formatPrice } = useCurrency();
   const [hovered, setHovered] = useState(false);
+  const resolvedImage = imageSrc ?? product.imageSrc;
 
   const handleAdd = (event) => {
     event.stopPropagation();
@@ -46,10 +47,10 @@ function ProductCard({
       onClick={onOpen}
     >
       <div className="product-card-image-shell">
-        {imageSrc ? (
+        {resolvedImage ? (
           <div
             className="product-card-photo"
-            style={{ backgroundImage: `url(${imageSrc})` }}
+            style={{ backgroundImage: `url(${resolvedImage})` }}
           />
         ) : (
           <AnimatePresence mode="wait">

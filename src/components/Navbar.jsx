@@ -2,7 +2,6 @@ import { AnimatePresence, LayoutGroup, motion, useScroll } from 'framer-motion';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { useCurrency } from '../context/CurrencyContext';
 import Logo from './Logo';
 
 const navLinks = [
@@ -18,7 +17,6 @@ function Navbar() {
   const location = useLocation();
   const { scrollY } = useScroll();
   const { itemCount, toggleCart, cartIconRef, cartPulseTick } = useCart();
-  const { currency, setCurrency } = useCurrency();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -61,18 +59,6 @@ function Navbar() {
           </LayoutGroup>
 
           <div className="nav-actions">
-            <div className="currency-toggle" aria-label="Currency selector">
-              {['EUR', 'INR', 'USD'].map((code) => (
-                <button
-                  key={code}
-                  type="button"
-                  className={`currency-option ${currency === code ? 'active' : ''}`}
-                  onClick={() => setCurrency(code)}
-                >
-                  {code}
-                </button>
-              ))}
-            </div>
             <button className="icon-button" aria-label="Search">
               <span>⌕</span>
             </button>

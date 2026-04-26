@@ -176,49 +176,6 @@ button {
   flex-wrap: wrap;
 }
 
-.currency-toggle {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.18rem;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(14, 14, 14, 0.38);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 14px 28px rgba(14, 14, 14, 0.14);
-}
-
-.navbar-shell.scrolled .currency-toggle {
-  border-color: rgba(14, 14, 14, 0.08);
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: none;
-}
-
-.currency-option {
-  min-width: 3.35rem;
-  padding: 0.42rem 0.72rem;
-  border-radius: 999px;
-  color: currentColor;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
-}
-
-.currency-option:hover {
-  transform: translateY(-1px);
-}
-
-.currency-option.active {
-  background: var(--white);
-  color: var(--black);
-}
-
-.navbar-shell.scrolled .currency-option.active {
-  background: var(--green);
-  color: var(--white);
-}
-
 .nav-link {
   position: relative;
 }
@@ -558,6 +515,16 @@ button {
   background-size: cover;
 }
 
+.product-photo-frame {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.product-photo-frame span {
+  display: none;
+}
+
 .product-card-image,
 .seasonal-image,
 .collection-grid-card,
@@ -875,10 +842,22 @@ button {
   overflow: hidden;
 }
 
-.collection-card-photo {
+.collection-card-slider {
+  position: absolute;
+  inset: 0;
+}
+
+.collection-card-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  animation-name: collectionFade;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
 }
 
 .collection-grid-overlay {
@@ -914,6 +893,28 @@ button {
 .faq-section,
 .trust-strip {
   padding-top: 5rem;
+}
+
+@keyframes collectionFade {
+  0% {
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  38% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 .blog-grid {

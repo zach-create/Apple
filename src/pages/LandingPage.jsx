@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import heroVideo from '../../first.mp4';
 import storyVideo from '../../second.mp4';
 import limitedVideo from '../../limited.mp4';
-import showcaseImage from '../../new.jpg';
 import blogImageOne from '../../Blog1.jpg';
 import blogImageTwo from '../../Blog2.jpg';
 import blogImageThree from '../../Blog3.jpg';
@@ -21,13 +20,28 @@ import {
 const spring = { type: 'spring', stiffness: 280, damping: 22 };
 const reveal = { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] };
 const blogImages = [blogImageOne, blogImageTwo, blogImageThree];
+const tailoredCollectionImages = Object.values(
+  import.meta.glob('../../designs/B_DES/*', { eager: true, import: 'default' }),
+).sort();
+const occasionCollectionImages = Object.values(
+  import.meta.glob('../../designs/W_DES/*', { eager: true, import: 'default' }),
+).sort();
+const essentialsCollectionImages = Object.values(
+  import.meta.glob('../../designs/Same/*', { eager: true, import: 'default' }),
+).sort();
 
 function LandingPage() {
   const [openFaq, setOpenFaq] = useState(0);
   const carouselRef = useRef(null);
+  const signatureDropProducts = useMemo(() => homepageCarouselProducts.slice(0, 5), []);
+  const collectionImageSets = [
+    tailoredCollectionImages,
+    occasionCollectionImages,
+    essentialsCollectionImages,
+  ];
 
   const carouselWidth = useMemo(
-    () => Math.max(0, homepageCarouselProducts.length * 280 - 960),
+    () => Math.max(0, signatureDropProducts.length * 280 - 960),
     [],
   );
 
@@ -120,13 +134,12 @@ function LandingPage() {
           dragConstraints={{ left: -carouselWidth, right: 0 }}
           whileTap={{ cursor: 'grabbing' }}
         >
-          {homepageCarouselProducts.map((product) => (
+          {signatureDropProducts.map((product) => (
             <div className="carousel-card" key={product.id}>
               <ProductCard
                 product={product}
                 showPricing={false}
                 showAction={false}
-                imageSrc={showcaseImage}
               />
             </div>
           ))}
@@ -232,15 +245,28 @@ function LandingPage() {
 
       <section className="collection-grid-section" id="essentials">
         <div className="collection-grid">
-          {collectionCards.map((card) => (
+          {collectionCards.map((card, index) => (
             <motion.article
               key={card.title}
-              className="collection-grid-card collection-card-photo"
-              style={{ backgroundImage: `url(${showcaseImage})` }}
+              className="collection-grid-card"
               whileHover="hover"
               initial="rest"
               animate="rest"
             >
+              <div className="collection-card-slider">
+                {collectionImageSets[index].map((image, imageIndex) => (
+                  <div
+                    key={`${card.title}-${imageIndex}`}
+                    className="collection-card-slide"
+                    data-slide-count={collectionImageSets[index].length}
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      animationDelay: `${imageIndex * 3}s`,
+                      animationDuration: `${collectionImageSets[index].length * 3}s`,
+                    }}
+                  />
+                ))}
+              </div>
               <motion.div
                 className="collection-grid-overlay"
                 variants={{
